@@ -153,23 +153,36 @@ function animateHeroSection() {
     cycleText();
 }
 
-// Initialize animations when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Delay the start of the hero text animation after the preloader is gone
-    const preloader = document.querySelector('.preloader');
+// // Initialize animations when the page loads
+// document.addEventListener('DOMContentLoaded', () => {
+//     // Delay the start of the hero text animation after the preloader is gone
+//     const preloader = document.querySelector('.preloader');
     
-    // Hide preloader after content is loaded
+//     // Hide preloader after content is loaded
+//     window.addEventListener('load', () => {
+//         setTimeout(() => {
+//             preloader.classList.add('fade-out');
+//             setTimeout(() => {
+//                 preloader.style.display = 'none';
+//                 animateHeroSection(); // Start hero section animation after preloader is hidden
+//             }, 500);
+//         }, 2500); // Show preloader for 2.5 seconds
+//     });
+// });
+document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader');
+
     window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-            setTimeout(() => {
-                preloader.style.display = 'none';
-                animateHeroSection(); // Start hero section animation after preloader is hidden
-            }, 500);
-        }, 2500); // Show preloader for 2.5 seconds
+        // Fade out the preloader smoothly
+        preloader.classList.add('fade-out');
+
+        // Wait for the fade-out transition to finish before hiding
+        preloader.addEventListener('transitionend', () => {
+            preloader.style.display = 'none';
+            animateHeroSection(); // Start animations after preloader is fully hidden
+        });
     });
 });
-
 // Testimonials Slider
 function initTestimonialsSlider() {
     const slider = document.querySelector('.testimonials-slider');
